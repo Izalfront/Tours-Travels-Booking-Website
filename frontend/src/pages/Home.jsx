@@ -11,6 +11,7 @@ import SearchBar from '../shared/SearchBar';
 import ServiceList from '../services/ServiceList';
 import FeaturedTourList from '../components/Featured-tours/FeaturedTourList';
 import MasonnyImagesGallery from '../components/Image-gallery/MasonnyImagesGallery';
+import Testimonials from '../components/Testimonial/Testimonials';
 
 const Home = () => {
   return (
@@ -87,7 +88,7 @@ const Home = () => {
           <Row>
             <Col lg="6">
               <div className="experience__content">
-                <Subtitle Subtitle={'Explore'} />
+                <Subtitle Subtitle={'Experience'} />
 
                 <h2>
                   With our all experience <br />
@@ -141,7 +142,19 @@ const Home = () => {
       {/* ========== galery section end =========== */}
 
       {/* ========== testimonial section start =========== */}
-
+      <section>
+        <Container>
+          <Row>
+            <Col lg="12">
+              <Subtitle Subtitle={'Fans Love'} />
+              <h2 className="testimonial_title">What our fans say about us</h2>
+            </Col>
+            <Col lg="12">
+              <Testimonials />
+            </Col>
+          </Row>
+        </Container>
+      </section>
       {/* ========== testimonial section end =========== */}
     </>
   );
