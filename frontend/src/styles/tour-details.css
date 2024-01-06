@@ -101,6 +101,20 @@
   color: var(--text-color);
 }
 
+.review__item h6 {
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+.review__item span i {
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+}
+
 .user__reviews {
   margin-top: 2.5rem;
+}
+
+.user__reviews span {
+  font-weight: 500;
 }

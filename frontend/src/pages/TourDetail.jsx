@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import '../styles/tour-details.css';
 import { Container, Row, Col, Form, ListGroup } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import tourData from '../assets/data/tours';
 import calculateAvgRating from '../utils/avgRating';
 import avatar from '../assets/images/avatar.jpg';
+import Booking from '../components/Booking/Booking';
 const TourDetail = () => {
   const { id } = useParams();
+  const reviewMsgRef = useRef('');
+  const [tourRating, setTourRating] = useState(null);
   // static data later we will call our API and load our data from database
   const tour = tourData.find((tour) => tour.id === id);
   // destructure properties from tour object
@@ -15,6 +18,15 @@ const TourDetail = () => {
   const { totalRating, avgRating } = calculateAvgRating(reviews);
 
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
+
+  // submit request to the server
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const reviewText = reviewMsgRef.current.value;
+
+    // later will call our API and load our data from database
+  };
+
   return (
     <>
       <section>
@@ -43,11 +55,14 @@ const TourDetail = () => {
                       {city}
                     </span>
                     <span>
-                      <i class="ri-money-dollar-circle-line"></i>${price} per person
+                      <i class="ri-money-dollar-circle-line"></i>${price} /per person
+                    </span>
+                    <span>
+                      <i class="ri-map-pin-time-line"></i> {distance} k/m
                     </span>
                     <span>
                       <i class="ri-group-line"></i>
-                      {maxGroupSize}
+                      {maxGroupSize} people
                     </span>
                   </div>
                   <h5>Description</h5>
@@ -57,27 +72,27 @@ const TourDetail = () => {
                 {/* ========== tour review section start========= */}
                 <div className="tour__reviews mt-4">
                   <h4>Reviews ({reviews?.length}) reviews</h4>
-                  <Form>
+                  <Form onSubmit={submitHandler}>
                     <div className="d-flex align-items-center gap-3 mb-4 rating__group">
-                      <span>
+                      <span onClick={() => setTourRating(1)}>
                         1 <i class="ri-star-s-fill"></i>
                       </span>
-                      <span>
+                      <span onClick={() => setTourRating(2)}>
                         2 <i class="ri-star-s-fill"></i>
                       </span>
-                      <span>
+                      <span onClick={() => setTourRating(3)}>
                         3 <i class="ri-star-s-fill"></i>
                       </span>
-                      <span>
+                      <span onClick={() => setTourRating(4)}>
                         4 <i class="ri-star-s-fill"></i>
                       </span>
-                      <span>
+                      <span onClick={() => setTourRating(5)}>
                         5 <i class="ri-star-s-fill"></i>
                       </span>
                     </div>
 
                     <div className="review__input">
-                      <input type="text" name="" id="" placeholder="share your thoughts" />
+                      <input type="text" ref={reviewMsgRef} name="" id="" required placeholder="share your thoughts" />
                       <button type="submit" className="btn primary__btn text-white">
                         Send
                       </button>
@@ -106,6 +121,9 @@ const TourDetail = () => {
                 </div>
                 {/* ========== tour review section end========= */}
               </div>
+            </Col>
+            <Col lg="4">
+              <Booking tour={tour} />
             </Col>
           </Row>
         </Container>
